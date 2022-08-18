@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon ./backend/server.ts"
+    
   },
   "repository": "https://github.com/Nathan-kemal/watchwatch.com.git",
   "author": "Nathan Kemal",

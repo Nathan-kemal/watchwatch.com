@@ -13,7 +13,9 @@ app.use(
 );
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-const PORT: number = 5000;
+
+const ServerPort: any = process.env.PORT;
+const PORT: any = ServerPort | 5000;
 
 app.use('/api/home', router);
 

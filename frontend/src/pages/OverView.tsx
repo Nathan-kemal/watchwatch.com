@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
 import styled from '@emotion/styled';
@@ -67,7 +67,7 @@ const Cast = styled.div`
 `;
 
 const CardStyled = styled.div`
-    width: 9rem;
+    width: 8rem;
 
     display: inline-block;
     margin: 4px;
@@ -79,13 +79,13 @@ const CardStyled = styled.div`
 const CardImage = styled.img``;
 const StyledParagraph = styled.p``;
 const OverView = () => {
-    const {id} = useParams();
+    const {type, id} = useParams();
     const [movie, setMovies] = useState();
     const [casts, setCast] = useState([]);
 
     useEffect(() => {
         try {
-            fetch(`http://localhost:5000/api/home/overview/${id}`)
+            fetch(`http://localhost:5000/api/home/overview/${type}/${id}`)
                 .then((response) => {
                     return response.json();
                 })
@@ -93,7 +93,7 @@ const OverView = () => {
                     setMovies(da);
                 })
                 .then(() => {
-                    fetch(`http://localhost:5000/api/home/cast/${id}`)
+                    fetch(`http://localhost:5000/api/home/cast/${type}/${id}`)
                         .then((response) => {
                             return response.json();
                         })
@@ -107,10 +107,9 @@ const OverView = () => {
         }
     }, []);
 
-    console.log(casts);
+    // console.log(casts);
     return (
         <div>
-            <Navbar />
             <Container>
                 <SectionContainer url={``}>
                     <BackgroundPoster
@@ -125,9 +124,10 @@ const OverView = () => {
                                 <h1>
                                     {`${movie?.['title']}(${movie?.['release_date']})`}{' '}
                                 </h1>
-                                <h3>{movie?.['genres'][0]['name']}</h3>
-                                <h2>{movie?.['tagline']}</h2>
+                                <h4>{movie?.['genres'][0]['name']}</h4>
+                                <h4>{movie?.['tagline']}</h4>
 
+                                <h5>Overview</h5>
                                 <StyledParagraph>
                                     {movie?.['overview']}
                                 </StyledParagraph>
@@ -141,7 +141,7 @@ const OverView = () => {
                 <Cast>
                     {casts.length > 0 ? (
                         casts.map((cast) => (
-                            <CardStyled className='card'>
+                            <CardStyled key={cast?.['id']} className='card'>
                                 <CardImage
                                     src={`http://image.tmdb.org/t/p/w500${cast?.['profile_path']}`}
                                     className='card-img-top'
@@ -158,7 +158,7 @@ const OverView = () => {
                 </Cast>
             </Container>
 
-            <Container>df</Container>
+            <Container></Container>
         </div>
     );
 };

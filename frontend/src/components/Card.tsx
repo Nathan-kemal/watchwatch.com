@@ -21,7 +21,7 @@ const StyledLink = styled(Link)`
 interface MovieDetail {
     title: string;
     id: number;
-
+    type: string;
     overview: string;
     img: string;
 }
@@ -39,13 +39,13 @@ const truncate = (str: string, length: number) => {
     }
 };
 
-const Card = ({title, id, overview, img}: MovieDetail) => {
+const Card = ({title, type, id, overview, img}: MovieDetail) => {
     return (
         <>
             <CardStyled className='card'>
                 <StyledLink
                     to={{
-                        pathname: `/overview/${id}`,
+                        pathname: `/overview/${type}/${id}`,
                     }}
                 >
                     <CardImage

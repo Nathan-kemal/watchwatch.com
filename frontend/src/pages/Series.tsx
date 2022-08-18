@@ -1,20 +1,18 @@
-import axios from 'axios';
 import { useEffect, useState } from 'react';
 
 import styled from '@emotion/styled';
 
-import Card from './components/Card';
-import Navbar from './components/Navbar';
+import Card from '../components/Card';
 
-function App() {
+function Series() {
     const [count, setCount] = useState(0);
-    const [movies, setMovies] = useState([]);
+    const [series, setSeries] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:5000/api/home')
+        fetch('http://localhost:5000/api/home/series')
             .then((response) => response.json())
             .then((da) => {
-                setMovies(da.results);
+                setSeries(da.results);
             });
     }, [count]);
 
@@ -29,16 +27,17 @@ function App() {
     return (
         <>
             <Container className=''>
-                {movies.length > 0 ? (
-                    movies.map((element) => {
+                {series.length > 0 ? (
+                    series.map((element) => {
                         // console.log(`fucker ${element['title']}`);
                         const obj = {
                             title: element['title'],
                             id: element['id'],
                             overview: element['overview'],
                             img: element['poster_path'],
-                            type: 'movie',
+                            type: 'tv',
                         };
+                        console.log(`nigger ${element}`);
                         return <Card key={element['id']} {...obj} />;
                     })
                 ) : (
@@ -49,4 +48,4 @@ function App() {
     );
 }
 
-export default App;
+export default Series;

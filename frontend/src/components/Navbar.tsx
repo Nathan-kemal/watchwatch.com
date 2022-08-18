@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 
 import styled from '@emotion/styled';
 
@@ -31,7 +32,7 @@ const Container = styled.div`
         border-radius: 10px;
     }
 `;
-const NavLi = styled.li`
+const NavLi = styled(Link)`
     background-color: white;
     list-style: none;
     margin-right: 15px;
@@ -39,21 +40,47 @@ const NavLi = styled.li`
     cursor: pointer;
     border: 1px solid;
     border-radius: 5px;
+    text-decoration: none;
 `;
 
+const StyledLink = styled(Link)`
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+`;
 const Navbar = () => {
+    const ref = useRef<HTMLInputElement>(null);
+    const [search, setSearch] = useState('');
+
+    const searchMovies = (): string => {
+        if (ref.current?.value !== '') return String(ref.current?.value);
+        else return '';
+    };
+
+    function searchKey(event: React.ChangeEvent<HTMLInputElement>) {
+        setSearch(event.target.value);
+    }
+
     return (
         <>
             <NavStyled className='bg-light'>
                 <NavUl>
-                    <h2>watchwatch</h2>
+                    <StyledLink to={{pathname: `/`}}>
+                        <h2>watchwatch</h2>
+                    </StyledLink>
                     <Container>
-                        <NavLi>Home</NavLi>
-                        <NavLi>Movie</NavLi>
-                        <NavLi>Series</NavLi>
+                        <NavLi to='/'>Home</NavLi>
+                        <NavLi to='/movies'>Movie</NavLi>
+                        <NavLi to='/series'>Series</NavLi>
 
-                        <input className='form-control' type='text' />
-                        <button className='btn btn-primary'>Search</button>
+                        <input
+                            onChange={searchKey}
+                            className='form-control'
+                            type='text'
+                        />
+                        <Link to={{pathname: `/search/${search}`}}>
+                            <button className='btn btn-primary'>Search</button>
+                        </Link>
                     </Container>
                 </NavUl>
             </NavStyled>

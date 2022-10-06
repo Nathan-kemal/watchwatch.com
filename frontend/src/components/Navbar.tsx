@@ -52,14 +52,14 @@ const Navbar = () => {
     const ref = useRef<HTMLInputElement>(null);
     const [search, setSearch] = useState('');
 
+    function searchKey(event: React.ChangeEvent<HTMLInputElement>) {
+        setSearch(event.target.value);
+    }
     const searchMovies = (): string => {
         if (ref.current?.value !== '') return String(ref.current?.value);
         else return '';
     };
 
-    function searchKey(event: React.ChangeEvent<HTMLInputElement>) {
-        setSearch(event.target.value);
-    }
 
     return (
         <>

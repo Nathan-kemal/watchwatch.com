@@ -29,7 +29,7 @@ function Series() {
             <Container className=''>
                 {series.length > 0 ? (
                     series.map((element) => {
-                        // console.log(`fucker ${element['title']}`);
+                     
                         const obj = {
                             title: element['title'],
                             id: element['id'],

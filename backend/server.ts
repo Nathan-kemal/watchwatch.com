@@ -19,4 +19,4 @@ const PORT: any = ServerPort | 5000;
 
 app.use('/api/home', router);
 
-app.listen(PORT, () => console.log(`Server Running on PORT ${PORT}`));
+app.listen(5000, () => console.log(`Server Running on PORT ${PORT}`));

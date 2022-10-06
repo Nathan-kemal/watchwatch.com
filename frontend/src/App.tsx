@@ -31,7 +31,7 @@ function App() {
             <Container className=''>
                 {movies.length > 0 ? (
                     movies.map((element) => {
-                        // console.log(`fucker ${element['title']}`);
+                    
                         const obj = {
                             title: element['title'],
                             id: element['id'],
